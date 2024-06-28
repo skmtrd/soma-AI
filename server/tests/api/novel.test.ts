@@ -11,7 +11,7 @@ test(GET(noCookieClient.novel), async () => {
 
 test(POST(noCookieClient.novel), async () => {
   const aozoraUrl = createSigner({ key: 'abc' })({ exp: Math.floor(Date.now() / 1000) + 100 });
-  const res = await noCookieClient.novel.post({ body: { aozoraUrl } });
+  const res = await noCookieClient.novel.$post({ body: { aozoraUrl } });
 
   expect(res).toEqual(aozoraUrl);
 });
