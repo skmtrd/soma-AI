@@ -22,6 +22,7 @@
     "migrate:dev:createonly": "prisma migrate dev --create-only",
     "migrate:deploy": "prisma migrate deploy && npx prisma db seed",
     "migrate:reset": "prisma migrate reset",
+    "batch": "node -r esbuild-register tests/batch.ts",
     "start": "node --enable-source-maps index.js",
     "test": "vitest run --coverage",
     "typecheck": "tsc --noEmit"
@@ -58,6 +59,7 @@
     "esbuild-node-externals": "^1.13.0",
     "esbuild-register": "^3.5.0",
     "frourio": "^1.0.1",
+    "msw": "^2.3.1",
     "node-dev": "^8.0.0",
     "notios": "^0.4.1",
     "prisma": "^5.13.0",
