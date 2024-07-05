@@ -4,6 +4,7 @@ import { workEvent } from '../event/workEvent';
 import { workMethod } from '../model/workMethod';
 import { novelQuery } from '../repository/novelQuery';
 import { workCommand } from '../repository/workCommand';
+import { s3 } from 'service/s3Client';
 
 export const workUseCase = {
   create: (novelUrl: string): Promise<loadingWorkEntity> =>
@@ -22,6 +23,7 @@ export const workUseCase = {
       const completeWork = workMethod.complete(loadingWork);
 
       await workCommand.save(tx, completeWork);
+      await s3.putImage(`works/${loadingWork.id}/image.png`, image)
     }),
   failure: (leadingWork: loadingWorkEntity, errorMsg: string): Promise<void> =>
     transaction('RepeatableRead', async (tx) => {
