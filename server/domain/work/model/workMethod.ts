@@ -2,7 +2,7 @@ import type { CompletedWorkEntity, loadingWorkEntity } from 'api/@types/work';
 import { brandedId } from 'service/brandedId';
 import { ulid } from 'ulid';
 import type { FailedWorkEntity } from '../../../api/@types/work';
-
+import {getImageKey} from '../service/getS3Key'
 export const workMethod = {
   create: (val: { novelUrl: string; title: string; author: string }): loadingWorkEntity => {
     return {
@@ -20,7 +20,7 @@ export const workMethod = {
     return {
       ...leadingWork,
       status: 'completed',
-      imageUrl: '',
+      imageUrl: await s3.getSignedUrl(getImageKey(loadingWork)),
     };
   },
   failure: (leadingWork: loadingWorkEntity, errorMsg: string): FailedWorkEntity => {
