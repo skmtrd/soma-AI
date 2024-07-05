@@ -23,4 +23,9 @@ export const workUseCase = {
 
       await workCommand.save(tx, completeWork);
     }),
+  failure: (leadingWork: loadingWorkEntity, errorMsg: string): Promise<void> =>
+    transaction('RepeatableRead', async (tx) => {
+      const failedWork = workMethod.failure(leadingWork, errorMsg);
+      await workCommand.save(tx, failedWork);
+    }),
 };
