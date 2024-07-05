@@ -41,7 +41,7 @@ const toWorkEntity = (prismaWork: Work): WorkEntity => {
         imageUrl: null,
         errorMsg: z.string().parse(prismaWork.errorMsg),
       };
-    /*v8 ignore next 2 */
+    /* v8 ignore next 2 */
     default:
       throw new Error(status satisfies never);
   }
