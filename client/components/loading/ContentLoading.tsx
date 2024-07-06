@@ -8,3 +8,6 @@ export const ContentLoading = () => {
     </div>
   );
 };
+
+
+// 変更
