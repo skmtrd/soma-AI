@@ -17,6 +17,9 @@ import {
   COGNITO_USER_POOL_ID,
   SERVER_PORT,
 } from './envValues';
+import fastifyWebsocket from '@fastify/websocket';
+import { WS_PARH } from 'api/@constants';
+import { websocket } from './websockets';
 
 export const init = (): FastifyInstance => {
   const fastify = Fastify();
@@ -45,6 +48,12 @@ export const init = (): FastifyInstance => {
     replyOptions: {
       rewriteHeaders: (headers) => ({ ...headers, 'content-security-policy': undefined }),
     },
+  });
+
+  fastify.register(fastifyWebsocket)
+  fastify.register(async (fastify) => {
+    websocket.init(fastify);
+    fastify.get(WS_PARH, { websocket: true }, () => {})
   });
 
   server(fastify, { basePath: API_BASE_PATH });

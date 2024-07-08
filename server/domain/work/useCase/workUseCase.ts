@@ -27,11 +27,15 @@ export const workUseCase = {
       const completedWork = await workMethod.complete(loadingWork);
 
       await workCommand.save(tx, completedWork);
-      await s3.putImage(getImageKey(loadingWork.id), image)
+      await s3.putImage(getImageKey(loadingWork.id), image);
+
+      workEvent.workLoaded(completedWork);
     }),
   failure: (loadingWork: loadingWorkEntity, errorMsg: string): Promise<void> =>
     transaction('RepeatableRead', async (tx) => {
       const failedWork = await workMethod.failure(loadingWork, errorMsg);
       await workCommand.save(tx, failedWork);
+
+      workEvent.workLoaded(failedWork);
     }),
 };

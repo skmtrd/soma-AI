@@ -7,9 +7,13 @@ const NEXT_PUBLIC_COGNITO_POOL_ENDPOINT = z
   .string()
   .parse(process.env.NEXT_PUBLIC_COGNITO_POOL_ENDPOINT);
 
+  /////
+const SERVER_PORT = z.string().optional().parse(process.env.SERVER_PORT);
+
 export {
   COGNITO_USER_POOL_CLIENT_ID,
   COGNITO_USER_POOL_ID,
   NEXT_PUBLIC_API_BASE_PATH,
   NEXT_PUBLIC_COGNITO_POOL_ENDPOINT,
+  SERVER_PORT,
 };
