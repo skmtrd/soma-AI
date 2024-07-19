@@ -58,6 +58,6 @@ export const workEvent = {
       .catch((e) => workUseCase.failure(params.loadingWork, e.message));
   },
   workLoaded: (work: CompletedWorkEntity | FailedWorkEntity): void => {
-    websocket.broadcast(work):
+    websocket.broadcast(work);
   }
 };
